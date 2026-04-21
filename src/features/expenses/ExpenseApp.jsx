@@ -107,49 +107,8 @@ const ExpenseApp = () => {
       <Box component="main" sx={{ flexGrow: 1, p: 3, overflow: 'hidden' }}>
         <Container maxWidth="lg" sx={{ height: '100%' }}>
           <Grid container spacing={4} sx={{ height: '100%' }}>
-            {/* Left Column: Title + Form */}
-            <Grid item xs={12} md={3.5} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ mb: 3 }}>
-                <Typography variant="h4" sx={{ fontWeight: 800, fontSize: '1.75rem', mb: 0.5, letterSpacing: -0.5 }}>Expense Dashboard</Typography>
-                <Typography variant="body2" color="text.secondary">Track and manage your daily expenses efficiently.</Typography>
-              </Box>
-              
-              <Box sx={{ flexShrink: 0 }}>
-                <ExpenseForm onSubmit={handleAddExpense} isLoading={isSubmitting} />
-              </Box>
-              
-              {/* Daily Average card removed - cleanup */}
-            </Grid>
-
-            {/* Right Column: Stats + Filters + List */}
-            <Grid item xs={12} md={8.5} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3, flexShrink: 0 }}>
-                {/* Premium Total Card */}
-                <Paper 
-                  elevation={0}
-                  sx={{ 
-                    width: { xs: '100%', sm: '320px' },
-                    p: 2.5, 
-                    borderRadius: 4, 
-                    bgcolor: 'primary.main', 
-                    color: 'white',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center'
-                  }}
-                >
-                  <Typography variant="overline" sx={{ fontWeight: 700, opacity: 0.9, lineHeight: 1.2, display: 'block', mb: 0.5 }}>Total Filtered Expenses</Typography>
-                  <Typography variant="h3" sx={{ fontWeight: 800, fontSize: '2.25rem', mb: 0.5 }}>₹{totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Typography>
-                  <Typography variant="caption" sx={{ fontWeight: 700, opacity: 0.8, bgcolor: 'rgba(255,255,255,0.15)', px: 1.5, py: 0.25, borderRadius: '20px' }}>
-                    {totalCount} {totalCount === 1 ? 'Transaction' : 'Transactions'}
-                  </Typography>
-                  <Box sx={{ position: 'absolute', right: -15, top: -15, width: 80, height: 80, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)' }} />
-                </Paper>
-              </Box>
-
+            {/* Left Column: Stats + Filters + List */}
+            <Grid item xs={12} md={8.5} sx={{ height: '100%', display: 'flex', flexDirection: 'column', order: { xs: 2, md: 1 } }}>
               <ExpenseFilters 
                 categoryFilter={categoryFilter}
                 sortOrder={sortOrder}
@@ -175,6 +134,44 @@ const ExpenseApp = () => {
                   totalCount={totalCount}
                   onLoadMore={handleLoadMore}
                 />
+              </Box>
+            </Grid>
+
+            {/* Right Column: Title + Stats Card + Form */}
+            <Grid item xs={12} md={3.5} sx={{ height: '100%', display: 'flex', flexDirection: 'column', order: { xs: 1, md: 2 } }}>
+              <Box sx={{ mb: 3 }}>
+                <Typography variant="h4" sx={{ fontWeight: 800, fontSize: '1.75rem', mb: 0.5, letterSpacing: -0.5 }}>Expense Dashboard</Typography>
+                <Typography variant="body2" color="text.secondary">Track and manage your daily expenses efficiently.</Typography>
+              </Box>
+
+              <Box sx={{ mb: 3, flexShrink: 0 }}>
+                {/* Premium Total Card */}
+                <Paper 
+                  elevation={0}
+                  sx={{ 
+                    p: 2.5, 
+                    borderRadius: 4, 
+                    bgcolor: 'primary.main', 
+                    color: 'white',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center'
+                  }}
+                >
+                  <Typography variant="overline" sx={{ fontWeight: 700, opacity: 0.9, lineHeight: 1.2, display: 'block', mb: 0.5 }}>Total Filtered Expenses</Typography>
+                  <Typography variant="h3" sx={{ fontWeight: 800, fontSize: '2.25rem', mb: 0.5 }}>₹{totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Typography>
+                  <Typography variant="caption" sx={{ fontWeight: 700, opacity: 0.8, bgcolor: 'rgba(255,255,255,0.15)', px: 1.5, py: 0.25, borderRadius: '20px' }}>
+                    {totalCount} {totalCount === 1 ? 'Transaction' : 'Transactions'}
+                  </Typography>
+                  <Box sx={{ position: 'absolute', right: -15, top: -15, width: 80, height: 80, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)' }} />
+                </Paper>
+              </Box>
+              
+              <Box sx={{ flexShrink: 0 }}>
+                <ExpenseForm onSubmit={handleAddExpense} isLoading={isSubmitting} />
               </Box>
             </Grid>
           </Grid>
