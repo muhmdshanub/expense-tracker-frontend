@@ -93,15 +93,7 @@ const ExpenseApp = () => {
                 <ExpenseForm onSubmit={handleAddExpense} isLoading={isSubmitting} />
               </Box>
               
-              <Paper sx={{ p: 2, borderRadius: 3, bgcolor: 'background.paper', border: '1px solid rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', gap: 2, mt: 'auto', mb: 2 }}>
-                <Avatar sx={{ bgcolor: 'secondary.main', color: 'text.primary', width: 32, height: 32 }}>
-                  <TrendingUpIcon sx={{ fontSize: 18 }} />
-                </Avatar>
-                <Box>
-                  <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700, display: 'block', lineHeight: 1 }}>Daily Average</Typography>
-                  <Typography variant="body1" sx={{ fontWeight: 700 }}>₹{(totalAmount / 30).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Typography>
-                </Box>
-              </Paper>
+              {/* Daily Average card removed - cleanup */}
             </Grid>
 
             {/* Right Column: Stats + Filters + List */}
