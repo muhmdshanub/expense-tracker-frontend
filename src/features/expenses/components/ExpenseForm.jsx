@@ -66,34 +66,35 @@ const ExpenseForm = ({ onSubmit, isLoading }) => {
   };
 
   return (
-    <Card elevation={0} sx={{ borderRadius: 4, mb: 3 }}>
-      <CardContent sx={{ p: 3 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-          <IconButton sx={{ bgcolor: 'primary.light', color: 'primary.main', mr: 2, '&:hover': { bgcolor: 'primary.light' } }}>
-            <AddIcon />
+    <Card elevation={0} sx={{ borderRadius: 3, mb: 2 }}>
+      <CardContent sx={{ p: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          <IconButton size="small" sx={{ bgcolor: 'primary.light', color: 'primary.main', mr: 1.5, width: 32, height: 32, '&:hover': { bgcolor: 'primary.light' } }}>
+            <AddIcon sx={{ fontSize: 18 }} />
           </IconButton>
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>Add New Expense</Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>Add New Expense</Typography>
         </Box>
         
         {error && (
-          <Box sx={{ color: 'error.main', mb: 2, p: 1.5, bgcolor: 'error.light', borderRadius: 2, fontSize: '0.875rem', opacity: 0.8 }}>
+          <Box sx={{ color: 'error.main', mb: 2, p: 1, bgcolor: 'error.light', borderRadius: 1.5, fontSize: '0.75rem', opacity: 0.8 }}>
             {error}
           </Box>
         )}
         
         <form onSubmit={handleSubmit}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
             <TextField
               label="Amount (₹)"
               name="amount"
               type="number"
               fullWidth
+              size="small"
               value={formData.amount}
               onChange={handleChange}
               placeholder="0.00"
               required
               InputProps={{
-                startAdornment: <InputAdornment position="start">₹</InputAdornment>,
+                startAdornment: <InputAdornment position="start" sx={{ '& .MuiTypography-root': { fontSize: '0.875rem' } }}>₹</InputAdornment>,
               }}
               sx={{ bgcolor: 'background.default' }}
             />
@@ -103,14 +104,15 @@ const ExpenseForm = ({ onSubmit, isLoading }) => {
               label="Category"
               name="category"
               fullWidth
+              size="small"
               value={formData.category}
               onChange={handleChange}
               required
               sx={{ bgcolor: 'background.default' }}
             >
-              <MenuItem value="" disabled>Select category</MenuItem>
+              <MenuItem value="" disabled sx={{ fontSize: '0.875rem' }}>Select category</MenuItem>
               {CATEGORIES.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
+                <MenuItem key={option.value} value={option.value} sx={{ fontSize: '0.875rem' }}>
                   {option.label}
                 </MenuItem>
               ))}
@@ -120,6 +122,7 @@ const ExpenseForm = ({ onSubmit, isLoading }) => {
               label="Description"
               name="description"
               fullWidth
+              size="small"
               placeholder="What was this for?"
               value={formData.description}
               onChange={handleChange}
@@ -131,6 +134,7 @@ const ExpenseForm = ({ onSubmit, isLoading }) => {
               name="date"
               type="date"
               fullWidth
+              size="small"
               value={formData.date}
               onChange={handleChange}
               required
@@ -142,10 +146,10 @@ const ExpenseForm = ({ onSubmit, isLoading }) => {
               type="submit" 
               variant="contained" 
               fullWidth 
-              size="large"
+              size="medium"
               disabled={isLoading}
-              endIcon={!isLoading && <ArrowForwardIcon />}
-              sx={{ mt: 1, py: 1.5, textTransform: 'none', fontSize: '1rem' }}
+              endIcon={!isLoading && <ArrowForwardIcon sx={{ fontSize: 16 }} />}
+              sx={{ mt: 0.5, py: 1, textTransform: 'none', fontSize: '0.875rem', fontWeight: 700 }}
             >
               {isLoading ? 'Saving...' : 'Save Expense'}
             </Button>

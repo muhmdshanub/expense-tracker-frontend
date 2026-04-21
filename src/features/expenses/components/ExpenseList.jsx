@@ -30,18 +30,18 @@ const CATEGORY_ICONS = {
 const ExpenseList = ({ expenses }) => {
   if (!expenses || expenses.length === 0) {
     return (
-      <Card elevation={0} sx={{ borderRadius: 4, textAlign: 'center', p: 5 }}>
-        <Typography color="text.secondary">No transactions found for this period.</Typography>
+      <Card elevation={0} sx={{ borderRadius: 3, textAlign: 'center', p: 4, bgcolor: 'transparent' }}>
+        <Typography color="text.secondary" variant="body2">No transactions found for this period.</Typography>
       </Card>
     );
   }
 
   return (
-    <Card elevation={0} sx={{ borderRadius: 4 }}>
+    <Card elevation={0} sx={{ borderRadius: 3, bgcolor: 'white' }}>
       <CardContent sx={{ p: 0 }}>
-        <Box sx={{ p: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>Recent Transactions</Typography>
-          <Typography variant="body2" color="primary" sx={{ cursor: 'pointer', fontWeight: 600 }}>View All</Typography>
+        <Box sx={{ px: 2.5, py: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>Recent Transactions</Typography>
+          <Typography variant="caption" color="primary" sx={{ cursor: 'pointer', fontWeight: 700 }}>View All</Typography>
         </Box>
         <Divider />
         <List sx={{ py: 0 }}>
@@ -49,31 +49,31 @@ const ExpenseList = ({ expenses }) => {
             const catSettings = CATEGORY_ICONS[expense.category] || CATEGORY_ICONS.Other;
             return (
               <React.Fragment key={expense.id}>
-                <ListItem sx={{ py: 2, px: 3 }}>
-                  <ListItemAvatar>
-                    <Avatar sx={{ bgcolor: catSettings.bg, color: catSettings.color }}>
+                <ListItem sx={{ py: 1.5, px: 2.5 }}>
+                  <ListItemAvatar sx={{ minWidth: 48 }}>
+                    <Avatar sx={{ bgcolor: catSettings.bg, color: catSettings.color, width: 32, height: 32, '& .MuiSvgIcon-root': { fontSize: 18 } }}>
                       {catSettings.icon}
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText 
                     primary={
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                      <Typography variant="body2" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
                         {expense.description || expense.category}
                       </Typography>
                     }
                     secondary={
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                         {expense.category} • {expense.date}
                       </Typography>
                     }
                   />
                   <Box sx={{ textAlign: 'right' }}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
                       ₹{Number(expense.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                     </Typography>
                   </Box>
                 </ListItem>
-                {index < expenses.length - 1 && <Divider component="li" />}
+                {index < expenses.length - 1 && <Divider component="li" sx={{ mx: 2 }} />}
               </React.Fragment>
             );
           })}

@@ -61,15 +61,15 @@ const ExpenseApp = () => {
   }, [expenses]);
 
   return (
-    <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: 'background.default' }}>
-      <AppBar position="static" color="inherit" elevation={0} sx={{ borderBottom: '1px solid rgba(0,0,0,0.05)', mb: 4 }}>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: 'background.default', overflow: 'hidden' }}>
+      <AppBar position="static" color="inherit" elevation={0} sx={{ borderBottom: '1px solid rgba(0,0,0,0.05)', bgcolor: 'white' }}>
+        <Toolbar sx={{ justifyContent: 'space-between', minHeight: 64 }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar sx={{ bgcolor: 'primary.main', mr: 1, width: 32, height: 32 }}>
-              <WalletIcon sx={{ fontSize: 18 }} />
+            <Avatar sx={{ bgcolor: 'primary.main', mr: 1, width: 28, height: 28 }}>
+              <WalletIcon sx={{ fontSize: 16 }} />
             </Avatar>
-            <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: -0.5 }}>FinTrack</Typography>
-            <Box sx={{ ml: 4, display: { xs: 'none', sm: 'flex' }, gap: 3 }}>
+            <Typography variant="h6" sx={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: -0.5 }}>FinTrack</Typography>
+            <Box sx={{ ml: 6, display: { xs: 'none', sm: 'flex' }, gap: 4 }}>
               <Typography variant="body2" sx={{ fontWeight: 700, borderBottom: '2px solid', borderColor: 'primary.main', pb: 0.5, color: 'primary.main', cursor: 'pointer' }}>Dashboard</Typography>
               <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.secondary', cursor: 'pointer' }}>Analytics</Typography>
               <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.secondary', cursor: 'pointer' }}>Settings</Typography>
@@ -78,81 +78,86 @@ const ExpenseApp = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <IconButton size="small">
               <Badge badgeContent={4} color="error">
-                <NotificationsIcon size="small" />
+                <NotificationsIcon sx={{ fontSize: 20 }} />
               </Badge>
             </IconButton>
-            <Avatar sx={{ width: 32, height: 32 }} />
+            <Avatar sx={{ width: 28, height: 28 }} />
           </Box>
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="lg">
-        <Grid container spacing={4}>
-          {/* Left Column: Title + Form */}
-          <Grid item xs={12} md={4}>
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h4" sx={{ fontWeight: 800, mb: 1, letterSpacing: -1 }}>Expense Dashboard</Typography>
-              <Typography variant="body1" color="text.secondary">Track and manage your daily expenses efficiently.</Typography>
-            </Box>
-            
-            <ExpenseForm onSubmit={handleAddExpense} isLoading={isSubmitting} />
-            
-            <Paper sx={{ p: 3, borderRadius: 4, bgcolor: 'background.paper', border: '1px solid rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Avatar sx={{ bgcolor: 'secondary.main', color: 'text.primary' }}>
-                <TrendingUpIcon />
-              </Avatar>
-              <Box>
-                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>Daily Average</Typography>
-                <Typography variant="h6" sx={{ fontWeight: 700 }}>₹{(totalAmount / 30).toFixed(2)}</Typography>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, overflow: 'hidden' }}>
+        <Container maxWidth="lg" sx={{ height: '100%' }}>
+          <Grid container spacing={4} sx={{ height: '100%' }}>
+            {/* Left Column: Title + Form */}
+            <Grid item xs={12} md={3.5} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{ mb: 3 }}>
+                <Typography variant="h4" sx={{ fontWeight: 800, fontSize: '1.75rem', mb: 0.5, letterSpacing: -0.5 }}>Expense Dashboard</Typography>
+                <Typography variant="body2" color="text.secondary">Track and manage your daily expenses efficiently.</Typography>
               </Box>
-            </Paper>
-          </Grid>
-
-          {/* Right Column: Stats + Filters + List */}
-          <Grid item xs={12} md={8}>
-            <Box sx={{ mb: 4, display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
-              {/* Premium Total Card */}
-              <Paper 
-                elevation={0}
-                sx={{ 
-                  flex: 1, 
-                  p: 3, 
-                  borderRadius: 4, 
-                  bgcolor: 'primary.main', 
-                  color: 'white',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-              >
-                <Typography variant="overline" sx={{ fontWeight: 700, opacity: 0.8 }}>Total Filtered Expenses</Typography>
-                <Typography variant="h3" sx={{ fontWeight: 800, my: 1 }}>₹{totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <TrendingUpIcon sx={{ fontSize: 16 }} />
-                  <Typography variant="caption" sx={{ fontWeight: 600 }}>2.4% vs last month</Typography>
+              
+              <Box sx={{ flexShrink: 0 }}>
+                <ExpenseForm onSubmit={handleAddExpense} isLoading={isSubmitting} />
+              </Box>
+              
+              <Paper sx={{ p: 2, borderRadius: 3, bgcolor: 'background.paper', border: '1px solid rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', gap: 2, mt: 'auto', mb: 2 }}>
+                <Avatar sx={{ bgcolor: 'secondary.main', color: 'text.primary', width: 32, height: 32 }}>
+                  <TrendingUpIcon sx={{ fontSize: 18 }} />
+                </Avatar>
+                <Box>
+                  <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700, display: 'block', lineHeight: 1 }}>Daily Average</Typography>
+                  <Typography variant="body1" sx={{ fontWeight: 700 }}>₹{(totalAmount / 30).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Typography>
                 </Box>
-                {/* Decorative circle */}
-                <Box sx={{ position: 'absolute', right: -20, top: -20, width: 100, height: 100, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)' }} />
               </Paper>
-              <Box sx={{ flex: 0.5 }} />
-            </Box>
+            </Grid>
 
-            <ExpenseFilters 
-              categoryFilter={categoryFilter}
-              sortOrder={sortOrder}
-              onCategoryChange={setCategoryFilter}
-              onSortChange={setSortOrder}
-            />
-
-            {fetchError && (
-              <Box sx={{ color: 'error.main', p: 2, mb: 3, bgcolor: 'error.light', borderRadius: 2 }}>
-                {fetchError}
+            {/* Right Column: Stats + Filters + List */}
+            <Grid item xs={12} md={8.5} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{ display: 'flex', gap: 2, mb: 3, flexShrink: 0 }}>
+                {/* Premium Total Card */}
+                <Paper 
+                  elevation={0}
+                  sx={{ 
+                    flex: 1, 
+                    p: 2.5, 
+                    borderRadius: 4, 
+                    bgcolor: 'primary.main', 
+                    color: 'white',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <Typography variant="overline" sx={{ fontWeight: 700, opacity: 0.9, lineHeight: 1.2, display: 'block', mb: 0.5 }}>Total Filtered Expenses</Typography>
+                  <Typography variant="h3" sx={{ fontWeight: 800, fontSize: '2.25rem', mb: 0.5 }}>₹{totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <TrendingUpIcon sx={{ fontSize: 14 }} />
+                    <Typography variant="caption" sx={{ fontWeight: 600 }}>2.4% vs last month</Typography>
+                  </Box>
+                  <Box sx={{ position: 'absolute', right: -15, top: -15, width: 80, height: 80, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)' }} />
+                </Paper>
+                <Box sx={{ flex: 1 }} />
               </Box>
-            )}
-            
-            <ExpenseList expenses={expenses} />
+
+              <ExpenseFilters 
+                categoryFilter={categoryFilter}
+                sortOrder={sortOrder}
+                onCategoryChange={setCategoryFilter}
+                onSortChange={setSortOrder}
+              />
+
+              {fetchError && (
+                <Box sx={{ color: 'error.main', p: 2, mb: 2, bgcolor: 'error.light', borderRadius: 2, fontSize: '0.875rem' }}>
+                  {fetchError}
+                </Box>
+              )}
+              
+              <Box sx={{ flexGrow: 1, overflowY: 'auto', pr: 1, '&::-webkit-scrollbar': { width: '6px' }, '&::-webkit-scrollbar-thumb': { bgcolor: 'rgba(0,0,0,0.1)', borderRadius: '10px' } }}>
+                <ExpenseList expenses={expenses} isLoading={isLoading} />
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </Box>
     </Box>
   );
 };
