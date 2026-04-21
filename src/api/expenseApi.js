@@ -2,7 +2,7 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export const expenseApi = {
   getExpenses: async (category = '', sort = 'date_desc', page = 1, limit = 20, startDate = '', endDate = '') => {
-    let url = `${API_URL}/expenses`;
+    let url = `${API_URL}/api/expenses`;
     const params = new URLSearchParams();
     
     if (category) params.append("category", category);
@@ -26,7 +26,7 @@ export const expenseApi = {
   },
 
   createExpense: async (expenseData) => {
-    const response = await fetch(`${API_URL}/expenses`, {
+    const response = await fetch(`${API_URL}/api/expenses`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,5 +41,17 @@ export const expenseApi = {
     
     const result = await response.json();
     return result.data || result;
+  },
+
+  checkHealth: async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/health`);
+      if (!response.ok) return false;
+      const data = await response.json();
+      return data.success;
+    } catch (err) {
+      console.error('Health check failed:', err);
+      return false;
+    }
   }
 };
