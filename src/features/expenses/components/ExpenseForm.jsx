@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Input from '../../../components/atoms/Input';
-import Select from '../../../components/atoms/Select';
-import Button from '../../../components/atoms/Button';
+import { 
+  Card, 
+  CardContent, 
+  Typography, 
+  TextField, 
+  MenuItem, 
+  Button, 
+  Box,
+  InputAdornment,
+  IconButton
+} from '@mui/material';
+import { Add as AddIcon, ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
 
 const CATEGORIES = [
   { value: 'Food', label: 'Food & Dining' },
@@ -17,7 +26,7 @@ const ExpenseForm = ({ onSubmit, isLoading }) => {
     amount: '',
     category: '',
     description: '',
-    date: new Date().toISOString().split('T')[0], // Default today
+    date: new Date().toISOString().split('T')[0],
   });
   
   const [error, setError] = useState('');
@@ -31,18 +40,20 @@ const ExpenseForm = ({ onSubmit, isLoading }) => {
     e.preventDefault();
     setError('');
 
+    if (!formData.category) {
+      setError('Please select a category');
+      return;
+    }
+
     if (parseFloat(formData.amount) <= 0) {
       setError('Amount must be greater than 0');
       return;
     }
 
     try {
-      // Generate request_id for backend idempotency
       const request_id = uuidv4();
-      
       await onSubmit({ ...formData, amount: parseFloat(formData.amount), request_id });
       
-      // On success, reset form (except date)
       setFormData({
         amount: '',
         category: '',
@@ -55,52 +66,93 @@ const ExpenseForm = ({ onSubmit, isLoading }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ backgroundColor: '#f8f9fa', padding: '1.5rem', borderRadius: '8px', marginBottom: '2rem' }}>
-      <h3 style={{ marginTop: 0 }}>Add New Expense</h3>
-      
-      {error && <div style={{ color: '#dc3545', marginBottom: '1rem', padding: '0.5rem', backgroundColor: '#f8d7da', borderRadius: '4px' }}>{error}</div>}
-      
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-        <Input 
-          label="Amount" 
-          name="amount"
-          type="number" 
-          step="0.01" 
-          value={formData.amount} 
-          onChange={handleChange} 
-          required 
-        />
-        <Select 
-          label="Category" 
-          name="category"
-          options={CATEGORIES} 
-          value={formData.category} 
-          onChange={handleChange} 
-          required 
-        />
-      </div>
-      
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
-        <Input 
-          label="Description" 
-          name="description"
-          value={formData.description} 
-          onChange={handleChange} 
-        />
-        <Input 
-          label="Date" 
-          name="date"
-          type="date" 
-          value={formData.date} 
-          onChange={handleChange} 
-          required 
-        />
-      </div>
-      
-      <Button type="submit" disabled={isLoading}>
-        {isLoading ? 'Saving...' : 'Add Expense'}
-      </Button>
-    </form>
+    <Card elevation={0} sx={{ borderRadius: 4, mb: 3 }}>
+      <CardContent sx={{ p: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+          <IconButton sx={{ bgcolor: 'primary.light', color: 'primary.main', mr: 2, '&:hover': { bgcolor: 'primary.light' } }}>
+            <AddIcon />
+          </IconButton>
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>Add New Expense</Typography>
+        </Box>
+        
+        {error && (
+          <Box sx={{ color: 'error.main', mb: 2, p: 1.5, bgcolor: 'error.light', borderRadius: 2, fontSize: '0.875rem', opacity: 0.8 }}>
+            {error}
+          </Box>
+        )}
+        
+        <form onSubmit={handleSubmit}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+            <TextField
+              label="Amount (₹)"
+              name="amount"
+              type="number"
+              fullWidth
+              value={formData.amount}
+              onChange={handleChange}
+              placeholder="0.00"
+              required
+              InputProps={{
+                startAdornment: <InputAdornment position="start">₹</InputAdornment>,
+              }}
+              sx={{ bgcolor: 'background.default' }}
+            />
+            
+            <TextField
+              select
+              label="Category"
+              name="category"
+              fullWidth
+              value={formData.category}
+              onChange={handleChange}
+              required
+              sx={{ bgcolor: 'background.default' }}
+            >
+              <MenuItem value="" disabled>Select category</MenuItem>
+              {CATEGORIES.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+
+            <TextField
+              label="Description"
+              name="description"
+              fullWidth
+              placeholder="What was this for?"
+              value={formData.description}
+              onChange={handleChange}
+              sx={{ bgcolor: 'background.default' }}
+            />
+
+            <TextField
+              label="Date"
+              name="date"
+              type="date"
+              fullWidth
+              value={formData.date}
+              onChange={handleChange}
+              required
+              InputLabelProps={{ shrink: true }}
+              sx={{ bgcolor: 'background.default' }}
+            />
+
+            <Button 
+              type="submit" 
+              variant="contained" 
+              fullWidth 
+              size="large"
+              disabled={isLoading}
+              endIcon={!isLoading && <ArrowForwardIcon />}
+              sx={{ mt: 1, py: 1.5, textTransform: 'none', fontSize: '1rem' }}
+            >
+              {isLoading ? 'Saving...' : 'Save Expense'}
+            </Button>
+          </Box>
+        </form>
+      </CardContent>
+    </Card>
   );
 };
 
