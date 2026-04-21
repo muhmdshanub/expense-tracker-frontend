@@ -33,14 +33,16 @@ const ExpenseApp = () => {
   const [page, setPage] = useState(1);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const LIMIT = 10;
 
   const fetchExpenses = async (p = 1, append = false) => {
-    console.log(`Fetching expenses page: ${p}, filter: ${categoryFilter}, sort: ${sortOrder}`);
+    console.log(`Fetching expenses page: ${p}, filter: ${categoryFilter}, sort: ${sortOrder}, range: ${startDate} to ${endDate}`);
     setIsLoading(true);
     setFetchError('');
     try {
-      const data = await expenseApi.getExpenses(categoryFilter, sortOrder, p, LIMIT);
+      const data = await expenseApi.getExpenses(categoryFilter, sortOrder, p, LIMIT, startDate, endDate);
       
       if (append) {
         setExpenses(prev => [...prev, ...data.items]);
@@ -57,11 +59,11 @@ const ExpenseApp = () => {
     }
   };
 
-  // Reset page to 1 when filters or sort change
+  // Reset page to 1 when filters, sort, or dates change
   useEffect(() => {
     setPage(1);
     fetchExpenses(1, false);
-  }, [categoryFilter, sortOrder]);
+  }, [categoryFilter, sortOrder, startDate, endDate]);
 
   const handleLoadMore = () => {
     const nextPage = page + 1;
@@ -149,8 +151,12 @@ const ExpenseApp = () => {
               <ExpenseFilters 
                 categoryFilter={categoryFilter}
                 sortOrder={sortOrder}
+                startDate={startDate}
+                endDate={endDate}
                 onCategoryChange={setCategoryFilter}
                 onSortChange={setSortOrder}
+                onStartDateChange={setStartDate}
+                onEndDateChange={setEndDate}
               />
 
               {fetchError && (

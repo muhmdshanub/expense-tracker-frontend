@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export const expenseApi = {
-  getExpenses: async (category = '', sort = 'date_desc', page = 1, limit = 20) => {
+  getExpenses: async (category = '', sort = 'date_desc', page = 1, limit = 20, startDate = '', endDate = '') => {
     let url = `${API_URL}/expenses`;
     const params = new URLSearchParams();
     
@@ -9,6 +9,8 @@ export const expenseApi = {
     if (sort) params.append("sort", sort);
     if (page) params.append("page", page);
     if (limit) params.append("limit", limit);
+    if (startDate) params.append("startDate", startDate);
+    if (endDate) params.append("endDate", endDate);
     
     const queryString = params.toString();
     if (queryString) {
