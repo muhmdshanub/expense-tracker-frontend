@@ -86,29 +86,33 @@ const ExpenseApp = () => {
   const hasMore = expenses.length < totalCount;
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: 'background.default', overflow: 'hidden' }}>
-      <AppBar position="static" color="inherit" elevation={0} sx={{ borderBottom: '1px solid rgba(0,0,0,0.05)', bgcolor: 'white' }}>
-        <Toolbar sx={{ justifyContent: 'space-between', minHeight: 64 }}>
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      height: { xs: 'auto', md: '100vh' }, 
+      minHeight: '100vh',
+      bgcolor: 'background.default', 
+      overflow: { xs: 'auto', md: 'hidden' } 
+    }}>
+      <AppBar position="static" color="inherit" elevation={0} sx={{ borderBottom: '1px solid rgba(0,0,0,0.05)', bgcolor: 'white', flexShrink: 0 }}>
+        <Toolbar sx={{ justifyContent: 'space-between', minHeight: { xs: 56, sm: 64 } }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Avatar sx={{ bgcolor: 'primary.main', mr: 1, width: 28, height: 28 }}>
               <WalletIcon sx={{ fontSize: 16 }} />
             </Avatar>
             <Typography variant="h6" sx={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: -0.5 }}>FinTrack</Typography>
-            <Box sx={{ ml: 6, display: { xs: 'none', sm: 'flex' }, gap: 4 }}>
+            <Box sx={{ ml: { xs: 2, sm: 6 }, display: 'flex', gap: { xs: 2, sm: 4 } }}>
               <Typography variant="body2" sx={{ fontWeight: 700, borderBottom: '2px solid', borderColor: 'primary.main', pb: 0.5, color: 'primary.main', cursor: 'pointer' }}>Dashboard</Typography>
             </Box>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            {/* Action items removed as they are not currently functional */}
           </Box>
         </Toolbar>
       </AppBar>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3, overflow: 'hidden' }}>
-        <Container maxWidth="lg" sx={{ height: '100%' }}>
-          <Grid container spacing={4} sx={{ height: '100%' }}>
+      <Box component="main" sx={{ flexGrow: 1, p: { xs: 2, sm: 3 }, overflow: { xs: 'visible', md: 'hidden' } }}>
+        <Container maxWidth="lg" sx={{ height: { xs: 'auto', md: '100%' }, p: { xs: 0, sm: initial } }}>
+          <Grid container spacing={{ xs: 3, md: 4 }} sx={{ height: { xs: 'auto', md: '100%' } }}>
             {/* Left Column: Stats + Filters + List */}
-            <Grid item xs={12} md={8.5} sx={{ height: '100%', display: 'flex', flexDirection: 'column', order: { xs: 2, md: 1 } }}>
+            <Grid item xs={12} md={8.5} sx={{ height: { xs: 'auto', md: '100%' }, display: 'flex', flexDirection: 'column', order: { xs: 2, md: 1 } }}>
               <ExpenseFilters 
                 categoryFilter={categoryFilter}
                 sortOrder={sortOrder}
@@ -126,7 +130,13 @@ const ExpenseApp = () => {
                 </Box>
               )}
               
-              <Box sx={{ flexGrow: 1, overflowY: 'auto', pr: 1, '&::-webkit-scrollbar': { width: '6px' }, '&::-webkit-scrollbar-thumb': { bgcolor: 'rgba(0,0,0,0.1)', borderRadius: '10px' } }}>
+              <Box sx={{ 
+                flexGrow: 1, 
+                overflowY: { xs: 'visible', md: 'auto' }, 
+                pr: { xs: 0, md: 1 }, 
+                '&::-webkit-scrollbar': { width: '6px' }, 
+                '&::-webkit-scrollbar-thumb': { bgcolor: 'rgba(0,0,0,0.1)', borderRadius: '10px' } 
+              }}>
                 <ExpenseList 
                   expenses={expenses} 
                   isLoading={isLoading} 
@@ -138,13 +148,13 @@ const ExpenseApp = () => {
             </Grid>
 
             {/* Right Column: Title + Stats Card + Form */}
-            <Grid item xs={12} md={3.5} sx={{ height: '100%', display: 'flex', flexDirection: 'column', order: { xs: 1, md: 2 } }}>
-              <Box sx={{ mb: 3 }}>
-                <Typography variant="h4" sx={{ fontWeight: 800, fontSize: '1.75rem', mb: 0.5, letterSpacing: -0.5 }}>Expense Dashboard</Typography>
+            <Grid item xs={12} md={3.5} sx={{ height: { xs: 'auto', md: '100%' }, display: 'flex', flexDirection: 'column', order: { xs: 1, md: 2 } }}>
+              <Box sx={{ mb: { xs: 2, md: 3 } }}>
+                <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.75rem' }, mb: 0.5, letterSpacing: -0.5 }}>Expense Dashboard</Typography>
                 <Typography variant="body2" color="text.secondary">Track and manage your daily expenses efficiently.</Typography>
               </Box>
 
-              <Box sx={{ mb: 3, flexShrink: 0 }}>
+              <Box sx={{ mb: { xs: 2, md: 3 }, flexShrink: 0 }}>
                 {/* Premium Total Card */}
                 <Paper 
                   elevation={0}
@@ -162,7 +172,7 @@ const ExpenseApp = () => {
                   }}
                 >
                   <Typography variant="overline" sx={{ fontWeight: 700, opacity: 0.9, lineHeight: 1.2, display: 'block', mb: 0.5 }}>Total Filtered Expenses</Typography>
-                  <Typography variant="h3" sx={{ fontWeight: 800, fontSize: '2.25rem', mb: 0.5 }}>₹{totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Typography>
+                  <Typography variant="h3" sx={{ fontWeight: 800, fontSize: { xs: '2rem', md: '2.25rem' }, mb: 0.5 }}>₹{totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Typography>
                   <Typography variant="caption" sx={{ fontWeight: 700, opacity: 0.8, bgcolor: 'rgba(255,255,255,0.15)', px: 1.5, py: 0.25, borderRadius: '20px' }}>
                     {totalCount} {totalCount === 1 ? 'Transaction' : 'Transactions'}
                   </Typography>
@@ -170,7 +180,7 @@ const ExpenseApp = () => {
                 </Paper>
               </Box>
               
-              <Box sx={{ flexShrink: 0 }}>
+              <Box sx={{ flexShrink: 0, mb: { xs: 2, md: 0 } }}>
                 <ExpenseForm onSubmit={handleAddExpense} isLoading={isSubmitting} />
               </Box>
             </Grid>

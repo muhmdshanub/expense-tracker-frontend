@@ -64,31 +64,31 @@ const ExpenseList = ({ expenses, isLoading, hasMore, totalCount, onLoadMore }) =
             const catSettings = CATEGORY_ICONS[expense.category] || CATEGORY_ICONS.Other;
             return (
               <React.Fragment key={expense.id}>
-                <ListItem sx={{ py: 1.5, px: 2.5 }}>
-                  <ListItemAvatar sx={{ minWidth: 48 }}>
-                    <Avatar sx={{ bgcolor: catSettings.bg, color: catSettings.color, width: 32, height: 32, '& .MuiSvgIcon-root': { fontSize: 18 } }}>
+                <ListItem sx={{ py: { xs: 1.25, sm: 1.5 }, px: { xs: 1.5, sm: 2.5 } }}>
+                  <ListItemAvatar sx={{ minWidth: { xs: 40, sm: 48 } }}>
+                    <Avatar sx={{ bgcolor: catSettings.bg, color: catSettings.color, width: { xs: 28, sm: 32 }, height: { xs: 28, sm: 32 }, '& .MuiSvgIcon-root': { fontSize: { xs: 16, sm: 18 } } }}>
                       {catSettings.icon}
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText 
                     primary={
-                      <Typography variant="body2" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
+                      <Typography variant="body2" sx={{ fontWeight: 700, lineHeight: 1.2, fontSize: { xs: '0.8rem', sm: '0.875rem' } }}>
                         {expense.description || expense.category}
                       </Typography>
                     }
                     secondary={
-                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, fontSize: { xs: '0.7rem', sm: '0.75rem' } }}>
                         {expense.category} • {expense.date}
                       </Typography>
                     }
                   />
                   <Box sx={{ textAlign: 'right' }}>
-                    <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 800, fontSize: { xs: '0.8rem', sm: '0.875rem' } }}>
                       ₹{Number(expense.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                     </Typography>
                   </Box>
                 </ListItem>
-                {index < expenses.length - 1 && <Divider component="li" sx={{ mx: 2 }} />}
+                {index < expenses.length - 1 && <Divider component="li" sx={{ mx: { xs: 1.5, sm: 2 } }} />}
               </React.Fragment>
             );
           })}

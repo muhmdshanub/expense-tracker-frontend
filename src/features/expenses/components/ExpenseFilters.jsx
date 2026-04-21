@@ -77,9 +77,16 @@ const ExpenseFilters = ({
       </Box>
 
       {/* Tools Ribbon: Range & Sort */}
-      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 3, alignItems: 'center', pt: 1, borderTop: '1px solid rgba(0,0,0,0.05)' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexGrow: 1 }}>
-          <CalendarIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} />
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: { xs: 'column', sm: 'row' }, 
+        gap: { xs: 2, sm: 3 }, 
+        alignItems: { xs: 'flex-start', sm: 'center' }, 
+        pt: 1.5, 
+        borderTop: '1px solid rgba(0,0,0,0.05)' 
+      }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 }, flexGrow: 1, width: { xs: '100%', sm: 'auto' } }}>
+          <CalendarIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5, flexShrink: 0 }} />
           <TextField
             type="date"
             size="small"
@@ -95,10 +102,11 @@ const ExpenseFilters = ({
                 bgcolor: 'white',
                 '& fieldset': { borderColor: 'rgba(0,0,0,0.08)' }
               },
-              width: 140
+              flexGrow: 1,
+              minWidth: 120
             }}
           />
-          <Typography variant="caption" sx={{ fontWeight: 800, color: 'text.disabled', mx: 0.5 }}>—</Typography>
+          <Typography variant="caption" sx={{ fontWeight: 800, color: 'text.disabled', mx: 0.25 }}>—</Typography>
           <TextField
             type="date"
             size="small"
@@ -114,14 +122,15 @@ const ExpenseFilters = ({
                 bgcolor: 'white',
                 '& fieldset': { borderColor: 'rgba(0,0,0,0.08)' }
               },
-              width: 140
+              flexGrow: 1,
+              minWidth: 120
             }}
           />
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <SortIcon sx={{ color: 'text.secondary', fontSize: 18 }} />
-          <FormControl size="small" sx={{ minWidth: 110 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'flex-start', sm: 'flex-end' } }}>
+          <SortIcon sx={{ color: 'text.secondary', fontSize: 18, flexShrink: 0 }} />
+          <FormControl size="small" sx={{ minWidth: 110, flexGrow: { xs: 1, sm: 0 } }}>
             <Select
               value={sortOrder}
               onChange={(e) => onSortChange(e.target.value)}
