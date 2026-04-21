@@ -39,7 +39,18 @@ const ExpenseList = ({ expenses }) => {
   return (
     <Card elevation={0} sx={{ borderRadius: 3, bgcolor: 'white' }}>
       <CardContent sx={{ p: 0 }}>
-        <Box sx={{ px: 2.5, py: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box sx={{ 
+          px: 2.5, 
+          py: 2, 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center',
+          position: 'sticky',
+          top: 0,
+          zIndex: 10,
+          bgcolor: 'white',
+          borderBottom: '1px solid rgba(0,0,0,0.05)'
+        }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>Recent Transactions</Typography>
         </Box>
         <Divider />
