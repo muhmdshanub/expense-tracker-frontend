@@ -74,12 +74,7 @@ const ExpenseApp = () => {
             </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <IconButton size="small">
-              <Badge badgeContent={4} color="error">
-                <NotificationsIcon sx={{ fontSize: 20 }} />
-              </Badge>
-            </IconButton>
-            <Avatar sx={{ width: 28, height: 28 }} />
+            {/* Action items removed as they are not currently functional */}
           </Box>
         </Toolbar>
       </AppBar>
