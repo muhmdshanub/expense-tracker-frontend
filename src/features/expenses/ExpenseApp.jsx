@@ -110,9 +110,25 @@ const ExpenseApp = () => {
 
       <Box component="main" sx={{ flexGrow: 1, p: { xs: 2, sm: 3 }, overflow: { xs: 'visible', md: 'hidden' } }}>
         <Container maxWidth="lg" sx={{ height: { xs: 'auto', md: '100%' }, p: { xs: 0, sm: 3 } }}>
-          <Grid container spacing={{ xs: 3, md: 4 }} sx={{ height: { xs: 'auto', md: '100%' } }}>
+          <Grid 
+            container 
+            spacing={{ xs: 2.5, md: 3 }} 
+            sx={{ height: { xs: 'auto', md: '100%' } }}
+            wrap={{ xs: 'wrap', md: 'nowrap' }}
+          >
             {/* Left Column: Stats + Filters + List */}
-            <Grid item xs={12} md={8.5} sx={{ height: { xs: 'auto', md: '100%' }, display: 'flex', flexDirection: 'column', order: { xs: 2, md: 1 } }}>
+            <Grid 
+              item 
+              xs={12} 
+              md={8} 
+              sx={{ 
+                height: { xs: 'auto', md: '100%' }, 
+                display: 'flex', 
+                flexDirection: 'column', 
+                order: { xs: 2, md: 1 },
+                minHeight: 0 // Flex stability for overflow
+              }}
+            >
               <ExpenseFilters 
                 categoryFilter={categoryFilter}
                 sortOrder={sortOrder}
@@ -134,6 +150,7 @@ const ExpenseApp = () => {
                 flexGrow: 1, 
                 overflowY: { xs: 'visible', md: 'auto' }, 
                 pr: { xs: 0, md: 1 }, 
+                minHeight: 0, // Flex stability for internal scroll
                 '&::-webkit-scrollbar': { width: '6px' }, 
                 '&::-webkit-scrollbar-thumb': { bgcolor: 'rgba(0,0,0,0.1)', borderRadius: '10px' } 
               }}>
@@ -148,7 +165,18 @@ const ExpenseApp = () => {
             </Grid>
 
             {/* Right Column: Title + Stats Card + Form */}
-            <Grid item xs={12} md={3.5} sx={{ height: { xs: 'auto', md: '100%' }, display: 'flex', flexDirection: 'column', order: { xs: 1, md: 2 } }}>
+            <Grid 
+              item 
+              xs={12} 
+              md={4} 
+              sx={{ 
+                height: { xs: 'auto', md: '100%' }, 
+                display: 'flex', 
+                flexDirection: 'column', 
+                order: { xs: 1, md: 2 },
+                minHeight: 0 // Flex stability
+              }}
+            >
               <Box sx={{ mb: { xs: 2, md: 3 } }}>
                 <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.75rem' }, mb: 0.5, letterSpacing: -0.5 }}>Expense Dashboard</Typography>
                 <Typography variant="body2" color="text.secondary">Track and manage your daily expenses efficiently.</Typography>
@@ -168,7 +196,8 @@ const ExpenseApp = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    width: '100%'
                   }}
                 >
                   <Typography variant="overline" sx={{ fontWeight: 700, opacity: 0.9, lineHeight: 1.2, display: 'block', mb: 0.5 }}>Total Filtered Expenses</Typography>
