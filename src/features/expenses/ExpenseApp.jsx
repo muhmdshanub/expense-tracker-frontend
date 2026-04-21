@@ -71,8 +71,6 @@ const ExpenseApp = () => {
             <Typography variant="h6" sx={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: -0.5 }}>FinTrack</Typography>
             <Box sx={{ ml: 6, display: { xs: 'none', sm: 'flex' }, gap: 4 }}>
               <Typography variant="body2" sx={{ fontWeight: 700, borderBottom: '2px solid', borderColor: 'primary.main', pb: 0.5, color: 'primary.main', cursor: 'pointer' }}>Dashboard</Typography>
-              <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.secondary', cursor: 'pointer' }}>Analytics</Typography>
-              <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.secondary', cursor: 'pointer' }}>Settings</Typography>
             </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>

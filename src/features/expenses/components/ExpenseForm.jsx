@@ -69,7 +69,7 @@ const ExpenseForm = ({ onSubmit, isLoading }) => {
     <Card elevation={0} sx={{ borderRadius: 3, mb: 2 }}>
       <CardContent sx={{ p: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-          <IconButton size="small" sx={{ bgcolor: 'primary.light', color: 'primary.main', mr: 1.5, width: 32, height: 32, '&:hover': { bgcolor: 'primary.light' } }}>
+          <IconButton size="small" sx={{ bgcolor: 'primary.main', color: 'white', mr: 1.5, width: 32, height: 32, '&:hover': { bgcolor: 'primary.dark' } }}>
             <AddIcon sx={{ fontSize: 18 }} />
           </IconButton>
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>Add New Expense</Typography>
