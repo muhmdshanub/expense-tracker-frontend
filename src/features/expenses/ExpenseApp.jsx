@@ -109,7 +109,7 @@ const ExpenseApp = () => {
       </AppBar>
 
       <Box component="main" sx={{ flexGrow: 1, p: { xs: 2, sm: 3 }, overflow: { xs: 'visible', md: 'hidden' } }}>
-        <Container maxWidth="lg" sx={{ height: { xs: 'auto', md: '100%' }, p: { xs: 0, sm: initial } }}>
+        <Container maxWidth="lg" sx={{ height: { xs: 'auto', md: '100%' }, p: { xs: 0, sm: 3 } }}>
           <Grid container spacing={{ xs: 3, md: 4 }} sx={{ height: { xs: 'auto', md: '100%' } }}>
             {/* Left Column: Stats + Filters + List */}
             <Grid item xs={12} md={8.5} sx={{ height: { xs: 'auto', md: '100%' }, display: 'flex', flexDirection: 'column', order: { xs: 2, md: 1 } }}>
