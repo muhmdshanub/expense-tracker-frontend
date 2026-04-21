@@ -113,29 +113,32 @@ const ExpenseApp = () => {
 
             {/* Right Column: Stats + Filters + List */}
             <Grid item xs={12} md={8.5} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ display: 'flex', gap: 2, mb: 3, flexShrink: 0 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3, flexShrink: 0 }}>
                 {/* Premium Total Card */}
                 <Paper 
                   elevation={0}
                   sx={{ 
-                    flex: 1, 
+                    width: { xs: '100%', sm: '320px' },
                     p: 2.5, 
                     borderRadius: 4, 
                     bgcolor: 'primary.main', 
                     color: 'white',
                     position: 'relative',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center'
                   }}
                 >
                   <Typography variant="overline" sx={{ fontWeight: 700, opacity: 0.9, lineHeight: 1.2, display: 'block', mb: 0.5 }}>Total Filtered Expenses</Typography>
                   <Typography variant="h3" sx={{ fontWeight: 800, fontSize: '2.25rem', mb: 0.5 }}>₹{totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: 'center' }}>
                     <TrendingUpIcon sx={{ fontSize: 14 }} />
                     <Typography variant="caption" sx={{ fontWeight: 600 }}>2.4% vs last month</Typography>
                   </Box>
                   <Box sx={{ position: 'absolute', right: -15, top: -15, width: 80, height: 80, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)' }} />
                 </Paper>
-                <Box sx={{ flex: 1 }} />
               </Box>
 
               <ExpenseFilters 
