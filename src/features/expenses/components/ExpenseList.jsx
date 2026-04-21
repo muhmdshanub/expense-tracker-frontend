@@ -55,7 +55,7 @@ const ExpenseList = ({ expenses, isLoading, hasMore, totalCount, onLoadMore }) =
           borderBottom: '1px solid rgba(0,0,0,0.05)'
         }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>
-            Recent Transactions {totalCount > 0 && `(${totalCount})`}
+            Transaction History {totalCount > 0 && `(${totalCount})`}
           </Typography>
         </Box>
         <Divider />
