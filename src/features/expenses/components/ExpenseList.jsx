@@ -28,7 +28,7 @@ const CATEGORY_ICONS = {
   Other: { icon: <OtherIcon />, color: '#607d8b', bg: '#f1f5f9' }
 };
 
-const ExpenseList = ({ expenses, isLoading, hasMore, onLoadMore }) => {
+const ExpenseList = ({ expenses, isLoading, hasMore, totalCount, onLoadMore }) => {
   if (!expenses || expenses.length === 0) {
     return (
       <Card elevation={0} sx={{ borderRadius: 3, textAlign: 'center', p: 4, bgcolor: 'transparent' }}>
@@ -54,7 +54,9 @@ const ExpenseList = ({ expenses, isLoading, hasMore, onLoadMore }) => {
           bgcolor: 'white',
           borderBottom: '1px solid rgba(0,0,0,0.05)'
         }}>
-          <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>Recent Transactions</Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>
+            Recent Transactions {totalCount > 0 && `(${totalCount})`}
+          </Typography>
         </Box>
         <Divider />
         <List sx={{ py: 0 }}>

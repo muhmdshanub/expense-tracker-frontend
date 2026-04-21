@@ -143,7 +143,9 @@ const ExpenseApp = () => {
                 >
                   <Typography variant="overline" sx={{ fontWeight: 700, opacity: 0.9, lineHeight: 1.2, display: 'block', mb: 0.5 }}>Total Filtered Expenses</Typography>
                   <Typography variant="h3" sx={{ fontWeight: 800, fontSize: '2.25rem', mb: 0.5 }}>₹{totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Typography>
-                  {/* Trend indicator removed - no backend support */}
+                  <Typography variant="caption" sx={{ fontWeight: 700, opacity: 0.8, bgcolor: 'rgba(255,255,255,0.15)', px: 1.5, py: 0.25, borderRadius: '20px' }}>
+                    {totalCount} {totalCount === 1 ? 'Transaction' : 'Transactions'}
+                  </Typography>
                   <Box sx={{ position: 'absolute', right: -15, top: -15, width: 80, height: 80, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)' }} />
                 </Paper>
               </Box>
@@ -170,6 +172,7 @@ const ExpenseApp = () => {
                   expenses={expenses} 
                   isLoading={isLoading} 
                   hasMore={hasMore}
+                  totalCount={totalCount}
                   onLoadMore={handleLoadMore}
                 />
               </Box>
