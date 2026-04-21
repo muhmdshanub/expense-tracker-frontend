@@ -37,8 +37,8 @@ const ExpenseList = ({ expenses }) => {
   }
 
   return (
-    <Card elevation={0} sx={{ borderRadius: 3, bgcolor: 'white' }}>
-      <CardContent sx={{ p: 0 }}>
+    <Card elevation={0} sx={{ borderRadius: 3, bgcolor: 'white', overflow: 'visible' }}>
+      <CardContent sx={{ p: 0, overflow: 'visible' }}>
         <Box sx={{ 
           px: 2.5, 
           py: 2, 
