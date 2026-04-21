@@ -8,7 +8,19 @@ import {
   Typography,
   TextField
 } from '@mui/material';
-...
+const FILTER_CATEGORIES = [
+  { value: '', label: 'All' },
+  { value: 'Food', label: 'Food' },
+  { value: 'Transport', label: 'Transport' },
+  { value: 'Utilities', label: 'Utilities' },
+  { value: 'Entertainment', label: 'Entertainment' },
+  { value: 'Other', label: 'Other' }
+];
+
+const SORT_OPTIONS = [
+  { value: 'date_desc', label: 'Newest' },
+  { value: 'date_asc', label: 'Oldest' }
+];
 const ExpenseFilters = ({ 
   categoryFilter, 
   sortOrder, 
