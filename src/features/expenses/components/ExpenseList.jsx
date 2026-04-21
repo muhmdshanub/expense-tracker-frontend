@@ -41,7 +41,6 @@ const ExpenseList = ({ expenses }) => {
       <CardContent sx={{ p: 0 }}>
         <Box sx={{ px: 2.5, py: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>Recent Transactions</Typography>
-          <Typography variant="caption" color="primary" sx={{ cursor: 'pointer', fontWeight: 700 }}>View All</Typography>
         </Box>
         <Divider />
         <List sx={{ py: 0 }}>
