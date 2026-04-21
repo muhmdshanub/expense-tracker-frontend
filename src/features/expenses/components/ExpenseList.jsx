@@ -9,7 +9,8 @@ import {
   ListItemAvatar, 
   ListItemText, 
   Avatar, 
-  Divider 
+  Divider,
+  Button
 } from '@mui/material';
 import { 
   Restaurant as FoodIcon, 
@@ -27,11 +28,13 @@ const CATEGORY_ICONS = {
   Other: { icon: <OtherIcon />, color: '#607d8b', bg: '#f1f5f9' }
 };
 
-const ExpenseList = ({ expenses }) => {
+const ExpenseList = ({ expenses, isLoading, hasMore, onLoadMore }) => {
   if (!expenses || expenses.length === 0) {
     return (
       <Card elevation={0} sx={{ borderRadius: 3, textAlign: 'center', p: 4, bgcolor: 'transparent' }}>
-        <Typography color="text.secondary" variant="body2">No transactions found for this period.</Typography>
+        <Typography color="text.secondary" variant="body2">
+          {isLoading ? 'Loading transactions...' : 'No transactions found for this period.'}
+        </Typography>
       </Card>
     );
   }
@@ -88,6 +91,20 @@ const ExpenseList = ({ expenses }) => {
             );
           })}
         </List>
+        
+        {hasMore && (
+          <Box sx={{ p: 2, textAlign: 'center' }}>
+            <Button 
+              size="small" 
+              onClick={onLoadMore} 
+              disabled={isLoading}
+              variant="text"
+              sx={{ fontWeight: 700, textTransform: 'none' }}
+            >
+              {isLoading ? 'Loading more...' : 'Load more transactions'}
+            </Button>
+          </Box>
+        )}
       </CardContent>
     </Card>
   );

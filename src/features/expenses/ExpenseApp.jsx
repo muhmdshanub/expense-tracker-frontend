@@ -28,14 +28,28 @@ const ExpenseApp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fetchError, setFetchError] = useState('');
+  
+  // Pagination & meta state
+  const [page, setPage] = useState(1);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const LIMIT = 10;
 
-  const fetchExpenses = async () => {
-    console.log(`Fetching expenses with filter: ${categoryFilter}, sort: ${sortOrder}`);
+  const fetchExpenses = async (p = 1, append = false) => {
+    console.log(`Fetching expenses page: ${p}, filter: ${categoryFilter}, sort: ${sortOrder}`);
     setIsLoading(true);
     setFetchError('');
     try {
-      const data = await expenseApi.getExpenses(categoryFilter, sortOrder);
-      setExpenses(data);
+      const data = await expenseApi.getExpenses(categoryFilter, sortOrder, p, LIMIT);
+      
+      if (append) {
+        setExpenses(prev => [...prev, ...data.items]);
+      } else {
+        setExpenses(data.items);
+      }
+      
+      setTotalAmount(Number(data.totalAmount) || 0);
+      setTotalCount(data.totalCount || 0);
     } catch (err) {
       setFetchError('Failed to fetch expenses. Please try refreshing the page.');
     } finally {
@@ -43,23 +57,31 @@ const ExpenseApp = () => {
     }
   };
 
+  // Reset page to 1 when filters or sort change
   useEffect(() => {
-    fetchExpenses();
+    setPage(1);
+    fetchExpenses(1, false);
   }, [categoryFilter, sortOrder]);
+
+  const handleLoadMore = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchExpenses(nextPage, true);
+  };
 
   const handleAddExpense = async (expenseData) => {
     setIsSubmitting(true);
     try {
       await expenseApi.createExpense(expenseData);
-      await fetchExpenses();
+      // After addition, reset to page 1 to see the newest items
+      setPage(1);
+      await fetchExpenses(1, false);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const totalAmount = useMemo(() => {
-    return expenses.reduce((sum, item) => sum + Number(item.amount), 0);
-  }, [expenses]);
+  const hasMore = expenses.length < totalCount;
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', bgcolor: 'background.default', overflow: 'hidden' }}>
@@ -138,7 +160,12 @@ const ExpenseApp = () => {
               )}
               
               <Box sx={{ flexGrow: 1, overflowY: 'auto', pr: 1, '&::-webkit-scrollbar': { width: '6px' }, '&::-webkit-scrollbar-thumb': { bgcolor: 'rgba(0,0,0,0.1)', borderRadius: '10px' } }}>
-                <ExpenseList expenses={expenses} isLoading={isLoading} />
+                <ExpenseList 
+                  expenses={expenses} 
+                  isLoading={isLoading} 
+                  hasMore={hasMore}
+                  onLoadMore={handleLoadMore}
+                />
               </Box>
             </Grid>
           </Grid>

@@ -1,12 +1,14 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export const expenseApi = {
-  getExpenses: async (category = '', sort = 'date_desc') => {
+  getExpenses: async (category = '', sort = 'date_desc', page = 1, limit = 20) => {
     let url = `${API_URL}/expenses`;
     const params = new URLSearchParams();
     
     if (category) params.append("category", category);
     if (sort) params.append("sort", sort);
+    if (page) params.append("page", page);
+    if (limit) params.append("limit", limit);
     
     const queryString = params.toString();
     if (queryString) {
@@ -18,7 +20,7 @@ export const expenseApi = {
       throw new Error('Failed to fetch expenses');
     }
     const result = await response.json();
-    return result.data || result; // Fallback depending on standard HTTP response wrapper success:true, data:[]
+    return result.data;
   },
 
   createExpense: async (expenseData) => {
