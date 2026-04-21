@@ -30,6 +30,7 @@ const ExpenseApp = () => {
   const [fetchError, setFetchError] = useState('');
 
   const fetchExpenses = async () => {
+    console.log(`Fetching expenses with filter: ${categoryFilter}, sort: ${sortOrder}`);
     setIsLoading(true);
     setFetchError('');
     try {
